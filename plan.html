@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ELDP Agile Simulation Metric Display</title>
+    <title>ELDP Agile Simulation Game Plan</title>
 </head>
 <body>
     <header>
@@ -24,10 +24,21 @@
         </div>
     </header>
 
-    <div>
-        <h2>Plan</h2>
-        <label for="plant"></label>
-        <input type="number" id="plan" placeholder="Enter your Plan">
+    <div class="plan-container">
+        <div class="plan-heading">
+            <h2>Plan</h2>
+        </div>
+
+        <div class="plan-input">
+            <input type="number" id="plan" placeholder="Enter your Plan">
+        </div>
+
+        <div class="start-round-button">
+            <button id="start-round">Start</button>
+        </div>
     </div>
+
+    <script src="plan_script.js"></script>
+
 </body>
 </html>
