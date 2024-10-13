@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>ELDP Agile Simulation Game Timer</title>
 </head>
 <body>
@@ -26,14 +27,20 @@
 
     <div class="timer-container">
         <div class="timer">
-            <h2>Timer</h2>
-            <div id="timer-display"></div>
+            <h2>Game Time</h2>
+            <div id="timer-display">0:00</div>
         </div>
 
-        <div class="defects">
+        <div id="defects">
             <h2>Defects</h2>
-            <input type="number" id="defects" placeholder="Enter your Defects">
+            <input type="number" id="defects-input" placeholder="Enter your Defects">
+            <div id="calculate-button-container">
+                <button id="calculate-button">Calculate</button>
+            </div>
         </div>
     </div>
+
+    <script src="timer_script.js"></script>
+
 </body>
 </html>
