@@ -33,15 +33,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Clicking the calculate button takes user to the metric page
     calculateButton.addEventListener('click', () => {
-        let defects = defectsInput.value;
-        localStorage.setItem('defects', defects);          // Store the defects value in the defects input field onto the local web browser storage for calculation
+        let defects = parseInt(defectsInput.value, 10);
+        localStorage.setItem('defects', defects);               // Store the defects value in the defects input field onto the local web browser storage for calculation
 
-        const plan = localStorage.getItem('plan');
+        const planString = localStorage.getItem('plan');
+        const plan = parseInt(planString, 10);
         const total = plan;                                     // The value of total is a place holder for now, real value of total should come from arduino
         const actual = total - defects;
         const delta = actual - plan;
 
-        /*
+        let allRoundsData = JSON.parse(localStorage.getItem('allRoundsData')) || [];
+        //allRoundsData[currentRound - 1] = roundData;                                  //Pick up from here(WIP)
+
+        // Object to store data for the current round
         const roundData = {
             round: currentRound,
             plan: plan,
@@ -51,15 +55,15 @@ document.addEventListener("DOMContentLoaded", () => {
             delta: delta
         };
 
-        let allRoundsData = JSON.parse(localStorage.getItem('allRoundsData'))
+        
         allRoundsData.push(roundData);
         localStorage.setItem('allRoundsData', JSON.stringify(allRoundsData));
-        */
+        
 
         // Saves the value of total, actual, and delta
-        localStorage.setItem('total', total);
-        localStorage.setItem('actual', actual);
-        localStorage.setItem('delta', delta);
+        // localStorage.setItem('total', total);
+        // localStorage.setItem('actual', actual);
+        // localStorage.setItem('delta', delta);
 
         window.location.href = 'metric.html';                   // Redirects users to the metric.html page 
     });

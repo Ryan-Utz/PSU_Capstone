@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-    let nextRoundButton = document.getElementById('next-round-button');
+    const nextRoundButton = document.getElementById('next-round-button');
+    const clearDataButton = document.getElementById('clear-data-button');
 
     const currentRound = parseInt(localStorage.getItem('currentRound')) || 1;                   // Set currentRound to the value of current round, if uninitialized, default to round 1
     document.querySelector('.round-number h1').textContent = `Round ${currentRound}`;
@@ -27,13 +28,23 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 1000);
     }
 
-    countDown(5);
+    countDown(2);
 
     nextRoundButton.addEventListener('click', () => {
         let currentRound = parseInt(localStorage.getItem('currentRound')) || 1;
         currentRound++;
         localStorage.setItem('currentRound', currentRound);                                     // Save the updated current round value to local storage
         window.location.href = 'plan.html'
+    });
+
+    clearDataButton.addEventListener('click', () => {
+        let confirmClear = confirm("Are you sure you want to reset all round data and restart from Round 1?");
+        if(confirmClear){
+            localStorage.clear();
+            localStorage.setItem('currentRound', 1);
+            window.location.href = 'plan.html'
+
+        }
     });
 
 });
