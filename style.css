@@ -2,9 +2,11 @@ body{
     font-size: 25px;
 }
 
+
 #defects{
     display: none;
 }
+
 
 #timer-display{
     width: 3%;
@@ -13,6 +15,44 @@ body{
     text-align: center;
 }
 
+
 #next-round-button-container{
+    display: none;
+}
+
+
+#rounds-container{
+    display: flex;
+    flex-direction: column;
+}
+
+
+.round-data{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+}
+
+
+.round-data h3{
+    display: flex;
+    justify-content: center;
+}
+
+
+.round-data div{
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    padding: 5px;
+    gap: 10px;
+}
+
+
+
+
+
+
+.hidden{
     display: none;
 }
