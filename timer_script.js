@@ -1,6 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
     let calculateButton = document.getElementById('calculate-button');
     let defectsInput = document.getElementById('defects-input');
+    //let alarmSound = document.getElementById('alarm-sound');
+    let audio = new Audio("alarm.mp3");
+
 
 
     const currentRound = parseInt(localStorage.getItem('currentRound')) || 1;                   // Set currentRound to the value of current round, if uninitialized, default to round 1
@@ -21,11 +24,17 @@ document.addEventListener("DOMContentLoaded", () => {
             // Decrement timer
             time--;
 
-
+            
             // If time is less than 0, stop the timer and alert user.
             if(time < 0){
                 clearInterval(timer);
-                alert("Time is up!")
+                audio.play();                                                                   // Play the alarm audio
+                alert("Time is up!");
+
+                //After clicking ok on the alert, pause the audio
+                if(alert){
+                    audio.pause();
+                }
 
 
                 // Display the defects input once the timer is up

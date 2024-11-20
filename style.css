@@ -152,6 +152,7 @@ button:active{
 }
 
 #defects-input{
+    width: 100%;
     padding: 12px;
     outline: none;
     border: 2px solid #97BEE7;

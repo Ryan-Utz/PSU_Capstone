@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
     const nextRoundButton = document.getElementById('next-round-button');
     const clearDataButton = document.getElementById('clear-data-button');
+    let audio = new Audio("alarm.mp3");
+
 
 
     const currentRound = parseInt(localStorage.getItem('currentRound')) || 1;                   // Set currentRound to the value of current round, if uninitialized, default to round 1
@@ -28,7 +30,12 @@ document.addEventListener("DOMContentLoaded", () => {
             // If time is less than 0, stop the timer and alert user.
             if(time < 0){
                 clearInterval(timer);
-                alert("Time is up!")
+                audio.play();
+                alert("Time is up!");
+
+                if(alert){
+                    audio.pause();
+                }
 
 
                 // Display the next rount button once the timer is up
