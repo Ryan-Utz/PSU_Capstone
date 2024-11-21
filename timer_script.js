@@ -3,16 +3,28 @@ document.addEventListener("DOMContentLoaded", () => {
     let defectsInput = document.getElementById('defects-input');
     //let alarmSound = document.getElementById('alarm-sound');
     let audio = new Audio("alarm.mp3");
-
-
+    let port;
+    let connectButton = document.getElementById('connect-button');
 
     const currentRound = parseInt(localStorage.getItem('currentRound')) || 1;                   // Set currentRound to the value of current round, if uninitialized, default to round 1
     document.querySelector('.round-number h1').textContent = `Round ${currentRound}`;
 
+    
+    //Button to connect to the Arduino. Will activate the function in the HTML to clear the Arduino's counter and begin counting for the next round.
+    connectButton.addEventListener('click', async function () {
+        if (port) {
+        port.close();
+        port = undefined;
+        }
+        else {
+        startCounting();
+        }
+    });
+
 
     function countDown(duration){
         let time = duration
-
+        localStorage.setItem("time",duration);
 
         // Countdown timer from 2 minutes, runs code every 1000 milliseconds / 1 second.
         let timer = setInterval(() => {
@@ -24,6 +36,8 @@ document.addEventListener("DOMContentLoaded", () => {
             // Decrement timer
             time--;
 
+            //Stores the remaining time for the Arduino to know that the round is still active.
+            localStorage.setItem("time",time);
             
             // If time is less than 0, stop the timer and alert user.
             if(time < 0){
@@ -45,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // Count down from 120 seconds, 2 minutes
-    countDown(2);
+    countDown(10);
 
 
     // Clicking the calculate button takes user to the metric page
@@ -56,10 +70,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const planString = localStorage.getItem('plan');
         const plan = parseInt(planString, 10);
-        const total = plan;                                     // The value of total is a place holder for now, real value of total should come from arduino
+        const total = localStorage.getItem("total"); //Stores the final value that was read from the Arduino.
         const actual = total - defects;
         const delta = actual - plan;
-
+        
 
         // Object to store data for the current round
         const roundData = {

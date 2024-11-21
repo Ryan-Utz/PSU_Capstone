@@ -15,6 +15,9 @@
         </div>
     </header>
 
+    <div id="connect-button-container">
+        <button id="connect-button">Connect Arduino</button>
+    </div>
     <!-- <audio id="alarm-sound" src="C:\Users\poppi\OneDrive\Documents\PersonalProjects\Capstone_Metric_Display_Resources\Sound_Effects\Alarm_Sound\031974_30-seconds-alarm-72117.mp3" preload="auto"></audio> -->
 
     <div class="timer-container">
@@ -22,6 +25,44 @@
             <h2>Game Time</h2>
             <div id="timer-display">0:00</div>
         </div>
+
+        <div class="BallCount">
+            <h2>Processed Balls</h2>
+            <div id="ball-count"></div>
+        </div>
+        <script>
+            async function startCounting() {
+                //Opens the serial port connection with the Arduino
+                port = await navigator.serial.requestPort({});
+                await port.open({ baudRate: 9600});
+
+                //This sends a signal to the Arduino that a round has begun, so the ball counter must return to 0
+                Encoder = new TextEncoderStream();
+                writableStreamClosed = Encoder.readable.pipeTo(port.writable);
+                writer = Encoder.writable.getWriter();
+                await writer.write(1);
+
+                //Creates the data stream to read the Arduino's signals
+                textDecoder = new TextDecoderStream();
+                readableStreamClosed = port.readable.pipeTo(textDecoder.writable);
+                reader = textDecoder.readable.getReader();
+
+                //While the timer is ticking down, display the amount of balls processed and store the total.
+                //Once the timer is up, stop receiving signals and hold the final total.
+                while(localStorage.getItem("time") > 0){
+                    const { value, done } = await reader.read();
+                    if (done) {
+                        reader.releaseLock();
+                        break;
+                    }
+                    localStorage.setItem('total', value);
+                    document.getElementById("ball-count").textContent = value;
+                }
+                //Close the port once the round has completed.
+                reader.releaseLock();
+                port.close();
+            }
+        </script>
 
         <div id="defects">
             <h2>Defects</h2>
