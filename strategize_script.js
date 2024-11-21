@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    countDown(2);
+    countDown(60);
 
 
     nextRoundButton.addEventListener('click', () => {
