@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // Count down from 120 seconds, 2 minutes
-    countDown(10);
+    countDown(120);
 
 
     // Clicking the calculate button takes user to the metric page
